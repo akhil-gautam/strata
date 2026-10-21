@@ -2,15 +2,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "DockDock",
+    name: "Shelfie",
     platforms: [.macOS("26.0")],
     products: [
-        .executable(name: "DockDock", targets: ["DockDock"])
+        .executable(name: "Shelfie", targets: ["Shelfie"])
     ],
     targets: [
         .executableTarget(
-            name: "DockDock",
-            path: "Sources/DockDock",
+            name: "Shelfie",
+            path: "Sources/Shelfie",
             swiftSettings: [.swiftLanguageMode(.v6)]
         )
     ]

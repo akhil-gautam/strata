@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DockDock: name and logo options</title>
+<style>
+  :root {
+    --bg: #f5f4f1;
+    --ink: #17161a;
+    --muted: #6d6a73;
+    --card: #ffffff;
+    --line: oklch(0 0 0 / 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111014; --ink: #f3f1f6; --muted: #9a96a3; --card: #1b1a20; --line: oklch(1 0 0 / 0.08); }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  header { max-width: 1180px; margin: 0 auto; padding: 56px 32px 8px; }
+  header h1 { font-size: 40px; letter-spacing: -0.02em; margin: 0 0 8px; text-wrap: balance; }
+  header p { color: var(--muted); font-size: 16px; margin: 0; max-width: 680px; text-wrap: pretty; }
+  main {
+    max-width: 1180px; margin: 0 auto; padding: 32px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.06), 0 0 0 1px var(--line);
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .num { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; }
+  .hero { display: flex; align-items: center; gap: 20px; }
+  .hero svg { width: 132px; height: 132px; flex: none; filter: drop-shadow(0 10px 18px oklch(0 0 0 / 0.22)); }
+  .name { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; margin: 0; }
+  .tag { color: var(--muted); font-size: 14px; margin: 4px 0 0; text-wrap: pretty; }
+  .why { font-size: 14px; line-height: 1.5; margin: 0; text-wrap: pretty; }
+  .row { display: flex; align-items: flex-end; gap: 14px; padding: 14px 16px; border-radius: 16px; background: oklch(0.5 0 0 / 0.06); }
+  .row svg { flex: none; }
+  .row .lbl { margin-left: auto; font-size: 11px; color: var(--muted); align-self: center; }
+  .menubar {
+    display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 12px; border-radius: 10px;
+    background: #e9e7ec; color: #1d1c20; font-size: 13px; font-weight: 600;
+  }
+  .menubar.dark { background: #2a2930; color: #f1eff4; }
+  .menubar svg { width: 16px; height: 16px; }
+  .word { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+  .word svg { width: 30px; height: 30px; }
+  footer { max-width: 1180px; margin: 0 auto; padding: 8px 32px 64px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<!-- Shared paints and the six marks, drawn once on a 1024 canvas. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-flaunt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff4f8b"/><stop offset="1" stop-color="#ff9a3d"/>
+    </linearGradient>
+    <linearGradient id="g-sashay" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b3bff"/><stop offset="1" stop-color="#ff3fb4"/>
+    </linearGradient>
+    <linearGradient id="g-bossy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26232c"/><stop offset="1" stop-color="#0c0b0f"/>
+    </linearGradient>
+    <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/><stop offset="0.55" stop-color="#f5b83d"/><stop offset="1" stop-color="#d98b1f"/>
+    </linearGradient>
+    <linearGradient id="g-shelfie" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14c8b0"/><stop offset="1" stop-color="#b6f05a"/>
+    </linearGradient>
+    <radialGradient id="g-diva" cx="0.5" cy="0.18" r="0.95">
+      <stop offset="0" stop-color="#3a1f6e"/><stop offset="1" stop-color="#0d0a1c"/>
+    </radialGradient>
+    <linearGradient id="g-diva-glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff5fa2"/><stop offset="0.5" stop-color="#ffb25e"/><stop offset="1" stop-color="#8f6bff"/>
+    </linearGradient>
+    <filter id="f-glow" x="-40%" y="-80%" width="180%" height="260%">
+      <feGaussianBlur stdDeviation="38"/>
+    </filter>
+    <linearGradient id="g-strut" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#9b4dff"/>
+    </linearGradient>
+    <linearGradient id="g-sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.28"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- The macOS app-icon outline, used by every mark. -->
+    <path id="squircle" d="M512 72c260 0 345 0 393 48s48 133 48 392 0 345-48 393-133 47-393 47-345 0-393-47S72 772 72 512s0-344 47-392S252 72 512 72Z"/>
+
+    <!-- 1. Flaunt: a hand of tiles fanned out like cards, with a sparkle. -->
+    <symbol id="flaunt" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-flaunt)"/>
+      <use href="#squircle" fill="url(#g-sheen)"/>
+      <g transform="translate(512 760)">
+        <rect x="-115" y="-430" width="230" height="300" rx="56" fill="#fff" opacity="0.55" transform="rotate(-24)"/>
+        <rect x="-115" y="-430" width="230" height="300" rx="56" fill="#fff" opacity="0.75" transform="rotate(24)"/>
+        <rect x="-115" y="-450" width="230" height="300" rx="56" fill="#fff"/>
+        <circle cx="0" cy="-322" r="58" fill="none" stroke="#ff5a7e" stroke-width="22"/>
+        <path d="M0-322v-32M0-322l24 18" stroke="#ff5a7e" stroke-width="20" stroke-linecap="round" fill="none"/>
+        <rect x="-62" y="-222" width="124" height="22" rx="11" fill="#ffb37a"/>
+      </g>
+      <path d="M770 238c8 52 22 66 74 74-52 8-66 22-74 74-8-52-22-66-74-74 52-8 66-22 74-74Z" fill="#fff"/>
+    </symbol>
+
+    <!-- 2. Sashay: tiles swaying along an S-curve, with motion trails. -->
+    <symbol id="sashay" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-sashay)"/>
+      <use href="#squircle" fill="url(#g-sheen)"/>
+      <path d="M222 640c120-180 230 60 340-90s180-170 240-120" stroke="#fff" stroke-opacity="0.35" stroke-width="34" stroke-linecap="round" fill="none"/>
+      <g fill="#fff">
+        <rect x="190" y="540" width="150" height="150" rx="40" transform="rotate(-12 265 615)"/>
+        <rect x="437" y="470" width="150" height="150" rx="40" transform="rotate(8 512 545)"/>
+        <rect x="684" y="360" width="150" height="150" rx="40" transform="rotate(-6 759 435)"/>
+      </g>
+      <g stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.6">
+        <path d="M140 580h-40M150 630h-60M160 680h-34"/>
+      </g>
+    </symbol>
+
+    <!-- 3. Bossy: a gold crown, tipped at an angle, on the middle tile of a bar. -->
+    <symbol id="bossy" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-bossy)"/>
+      <use href="#squircle" fill="url(#g-sheen)" opacity="0.6"/>
+      <rect x="176" y="560" width="672" height="210" rx="70" fill="#fff" fill-opacity="0.08" stroke="#fff" stroke-opacity="0.14" stroke-width="6"/>
+      <g fill="#fff" fill-opacity="0.9">
+        <rect x="210" y="594" width="170" height="142" rx="38"/>
+        <rect x="427" y="594" width="170" height="142" rx="38" fill="url(#g-gold)" fill-opacity="1"/>
+        <rect x="644" y="594" width="170" height="142" rx="38"/>
+      </g>
+      <g transform="rotate(-12 512 440)">
+        <path d="M352 520 322 320l110 92 80-150 80 150 110-92-30 200Z" fill="url(#g-gold)"/>
+        <rect x="350" y="508" width="324" height="44" rx="22" fill="url(#g-gold)"/>
+        <circle cx="322" cy="312" r="22" fill="#ffe08a"/>
+        <circle cx="512" cy="252" r="24" fill="#ffe08a"/>
+        <circle cx="702" cy="312" r="22" fill="#ffe08a"/>
+      </g>
+    </symbol>
+
+    <!-- 4. Shelfie: a shelf of tiles; one of them winks at you. -->
+    <symbol id="shelfie" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-shelfie)"/>
+      <use href="#squircle" fill="url(#g-sheen)"/>
+      <rect x="150" y="700" width="724" height="34" rx="17" fill="#0b4b43" fill-opacity="0.45"/>
+      <rect x="196" y="470" width="190" height="210" rx="48" fill="#fff" fill-opacity="0.7"/>
+      <rect x="638" y="510" width="190" height="170" rx="48" fill="#fff" fill-opacity="0.7"/>
+      <rect x="392" y="356" width="240" height="324" rx="60" fill="#fff"/>
+      <circle cx="465" cy="488" r="26" fill="#0e3b35"/>
+      <path d="M533 490q26-26 52 0" stroke="#0e3b35" stroke-width="22" stroke-linecap="round" fill="none"/>
+      <path d="M452 568q60 54 120 0" stroke="#0e3b35" stroke-width="22" stroke-linecap="round" fill="none"/>
+      <path d="M784 220c7 46 19 58 65 65-46 7-58 19-65 65-7-46-19-58-65-65 46-7 58-19 65-65Z" fill="#fff"/>
+      <circle cx="702" cy="372" r="14" fill="#fff"/>
+    </symbol>
+
+    <!-- 5. Diva: the notch island in a spotlight glow. -->
+    <symbol id="diva" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-diva)"/>
+      <ellipse cx="512" cy="430" rx="300" ry="120" fill="url(#g-diva-glow)" filter="url(#f-glow)" opacity="0.95"/>
+      <rect x="232" y="352" width="560" height="156" rx="78" fill="#000"/>
+      <rect x="232" y="352" width="560" height="156" rx="78" fill="none" stroke="#fff" stroke-opacity="0.16" stroke-width="5"/>
+      <circle cx="320" cy="430" r="24" fill="#ff5fa2"/>
+      <rect x="640" y="414" width="96" height="32" rx="16" fill="#fff" fill-opacity="0.9"/>
+      <circle cx="512" cy="430" r="18" fill="#1d1a2a"/>
+      <g fill="#fff">
+        <path d="M512 618c10 66 28 84 94 94-66 10-84 28-94 94-10-66-28-84-94-94 66-10 84-28 94-94Z"/>
+        <circle cx="352" cy="690" r="12" opacity="0.7"/>
+        <circle cx="676" cy="760" r="9" opacity="0.6"/>
+      </g>
+    </symbol>
+
+    <!-- 6. Strut: an S stepped out of rounded tiles, mid-stride. -->
+    <symbol id="strut" viewBox="0 0 1024 1024">
+      <use href="#squircle" fill="url(#g-strut)"/>
+      <use href="#squircle" fill="url(#g-sheen)"/>
+      <g fill="#fff">
+        <rect x="370" y="210" width="380" height="140" rx="56"/>
+        <rect x="274" y="210" width="140" height="300" rx="56" fill-opacity="0.82"/>
+        <rect x="274" y="442" width="476" height="140" rx="56"/>
+        <rect x="610" y="514" width="140" height="300" rx="56" fill-opacity="0.82"/>
+        <rect x="274" y="674" width="380" height="140" rx="56"/>
+      </g>
+      <g stroke="#fff" stroke-width="18" stroke-linecap="round" opacity="0.55">
+        <path d="M206 712h-44M220 762h-74"/>
+      </g>
+    </symbol>
+
+    <!-- One-colour menu bar glyphs: same ideas, drawn for 16 px. -->
+    <symbol id="m-flaunt" viewBox="0 0 16 16">
+      <rect x="2" y="3.5" width="5" height="7" rx="1.3" transform="rotate(-20 4.5 7)" fill="currentColor" opacity="0.55"/>
+      <rect x="9" y="3.5" width="5" height="7" rx="1.3" transform="rotate(20 11.5 7)" fill="currentColor" opacity="0.55"/>
+      <rect x="5.5" y="3" width="5" height="8" rx="1.3" fill="currentColor"/>
+      <rect x="2" y="12.5" width="12" height="1.5" rx="0.75" fill="currentColor"/>
+    </symbol>
+    <symbol id="m-sashay" viewBox="0 0 16 16">
+      <rect x="1" y="8.5" width="4" height="4" rx="1.1" fill="currentColor"/>
+      <rect x="6" y="6.5" width="4" height="4" rx="1.1" fill="currentColor"/>
+      <rect x="11" y="4" width="4" height="4" rx="1.1" fill="currentColor"/>
+      <path d="M2 14.5c3-2 6-1.5 12-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.6"/>
+    </symbol>
+    <symbol id="m-bossy" viewBox="0 0 16 16">
+      <path d="M3.5 9 3 4l2.6 2L8 2.5 10.4 6 13 4l-.5 5Z" fill="currentColor"/>
+      <rect x="1.5" y="10.5" width="13" height="4" rx="1.6" fill="currentColor" opacity="0.6"/>
+    </symbol>
+    <symbol id="m-shelfie" viewBox="0 0 16 16">
+      <rect x="1.5" y="13" width="13" height="1.5" rx="0.75" fill="currentColor"/>
+      <path fill-rule="evenodd" fill="currentColor" d="M6.5 2.5h3a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2ZM6.6 5.1a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8Z"/>
+    </symbol>
+    <symbol id="m-diva" viewBox="0 0 16 16">
+      <rect x="1.5" y="3" width="13" height="4.5" rx="2.25" fill="currentColor"/>
+      <path d="M8 9.5c.3 1.9.8 2.4 2.7 2.7-1.9.3-2.4.8-2.7 2.7-.3-1.9-.8-2.4-2.7-2.7 1.9-.3 2.4-.8 2.7-2.7Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="m-strut" viewBox="0 0 16 16">
+      <path d="M12.5 3.5h-7a2 2 0 0 0 0 4h5a2 2 0 0 1 0 4h-7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <h1>Pick a name and a mark</h1>
+  <p>Six sassy names for DockDock, each with an app icon (macOS squircle), the same icon at 64, 32 and 16 px, and a one-colour menu bar glyph. Every mark is plain SVG, so the one you pick ships as-is.</p>
+</header>
+
+<main>
+  <section class="card">
+    <span class="num">01</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Flaunt icon"><use href="#flaunt"/></svg>
+      <div><h2 class="name">Flaunt</h2><p class="tag">If you've got it, flaunt it.</p></div>
+    </div>
+    <p class="why">A hand of tiles fanned out like cards you're showing off. Hot pink to tangerine: loud, happy, impossible to miss in the Dock it replaces.</p>
+    <div class="row"><svg width="64" height="64"><use href="#flaunt"/></svg><svg width="32" height="32"><use href="#flaunt"/></svg><svg width="16" height="16"><use href="#flaunt"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-flaunt"/></svg>Flaunt</div>
+    <div class="menubar dark"><svg><use href="#m-flaunt"/></svg>Flaunt</div>
+  </section>
+
+  <section class="card">
+    <span class="num">02</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Sashay icon"><use href="#sashay"/></svg>
+      <div><h2 class="name">Sashay</h2><p class="tag">Sashay away, Dock.</p></div>
+    </div>
+    <p class="why">Tiles swaying along an S-curve, mid-walk. The bar literally sashays in from the edge, and the name says goodbye to the old Dock with attitude.</p>
+    <div class="row"><svg width="64" height="64"><use href="#sashay"/></svg><svg width="32" height="32"><use href="#sashay"/></svg><svg width="16" height="16"><use href="#sashay"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-sashay"/></svg>Sashay</div>
+    <div class="menubar dark"><svg><use href="#m-sashay"/></svg>Sashay</div>
+  </section>
+
+  <section class="card">
+    <span class="num">03</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Bossy icon"><use href="#bossy"/></svg>
+      <div><h2 class="name">Bossy</h2><p class="tag">The bar that runs your Mac.</p></div>
+    </div>
+    <p class="why">A gold crown, cocked at an angle, sitting on the middle tile. Black and gold reads premium, which suits a paid Pro tier later.</p>
+    <div class="row"><svg width="64" height="64"><use href="#bossy"/></svg><svg width="32" height="32"><use href="#bossy"/></svg><svg width="16" height="16"><use href="#bossy"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-bossy"/></svg>Bossy</div>
+    <div class="menubar dark"><svg><use href="#m-bossy"/></svg>Bossy</div>
+  </section>
+
+  <section class="card">
+    <span class="num">04</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Shelfie icon"><use href="#shelfie"/></svg>
+      <div><h2 class="name">Shelfie</h2><p class="tag">Your Mac's best side.</p></div>
+    </div>
+    <p class="why">Shelf plus selfie: a shelf of tiles where the middle one winks back. Playful and memorable; it also hints at the file shelf.</p>
+    <div class="row"><svg width="64" height="64"><use href="#shelfie"/></svg><svg width="32" height="32"><use href="#shelfie"/></svg><svg width="16" height="16"><use href="#shelfie"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-shelfie"/></svg>Shelfie</div>
+    <div class="menubar dark"><svg><use href="#m-shelfie"/></svg>Shelfie</div>
+  </section>
+
+  <section class="card">
+    <span class="num">05</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Diva icon"><use href="#diva"/></svg>
+      <div><h2 class="name">Diva</h2><p class="tag">Demands the spotlight. Deserves it.</p></div>
+    </div>
+    <p class="why">The notch island itself, glowing like it's on stage, with a star below. Built around the new Island mode and its accent glow.</p>
+    <div class="row"><svg width="64" height="64"><use href="#diva"/></svg><svg width="32" height="32"><use href="#diva"/></svg><svg width="16" height="16"><use href="#diva"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-diva"/></svg>Diva</div>
+    <div class="menubar dark"><svg><use href="#m-diva"/></svg>Diva</div>
+  </section>
+
+  <section class="card">
+    <span class="num">06</span>
+    <div class="hero">
+      <svg viewBox="0 0 1024 1024" role="img" aria-label="Strut icon"><use href="#strut"/></svg>
+      <div><h2 class="name">Strut</h2><p class="tag">Strut your stuff.</p></div>
+    </div>
+    <p class="why">An S stepped out of rounded tiles, with speed lines as it walks in. The most geometric of the six; it stays crisp at 16 px.</p>
+    <div class="row"><svg width="64" height="64"><use href="#strut"/></svg><svg width="32" height="32"><use href="#strut"/></svg><svg width="16" height="16"><use href="#strut"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="menubar"><svg><use href="#m-strut"/></svg>Strut</div>
+    <div class="menubar dark"><svg><use href="#m-strut"/></svg>Strut</div>
+  </section>
+</main>
+
+<footer>Names and marks can be mixed: any name works with any icon. Trademark and App Store name searches have not been run.</footer>
+</body>
+</html>

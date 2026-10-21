@@ -1,11 +1,11 @@
 #!/bin/bash
-# Builds DockDock and assembles a launchable .app bundle.
+# Builds Shelfie and assembles a launchable .app bundle.
 # Usage: scripts/build-app.sh [debug|release]
 #
 # Environment:
-#   DOCKDOCK_SIGN_IDENTITY   codesigning identity (default: first "Developer ID Application")
-#   DOCKDOCK_NOTARY_PROFILE  a `xcrun notarytool store-credentials` profile name; when set,
-#                            the signed app is notarized and the ticket stapled to it
+#   SHELFIE_SIGN_IDENTITY   codesigning identity (default: first "Developer ID Application")
+#   SHELFIE_NOTARY_PROFILE  a `xcrun notarytool store-credentials` profile name; when set,
+#                           the signed app is notarized and the ticket stapled to it
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -14,12 +14,13 @@ CONFIG="${1:-release}"
 cd "$ROOT"
 swift build -c "$CONFIG"
 BIN_PATH="$(swift build -c "$CONFIG" --show-bin-path)"
-APP="$ROOT/build/DockDock.app"
+APP="$ROOT/build/Shelfie.app"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN_PATH/DockDock" "$APP/Contents/MacOS/DockDock"
+cp "$BIN_PATH/Shelfie" "$APP/Contents/MacOS/Shelfie"
 cp "$ROOT/Resources/Info.plist" "$APP/Contents/Info.plist"
+cp "$ROOT/Resources/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 printf 'APPL????' > "$APP/Contents/PkgInfo"
 
 # Sign with a stable identity when one is available.
@@ -28,14 +29,14 @@ printf 'APPL????' > "$APP/Contents/PkgInfo"
 # Photos) to the app's code signing identity. An ad-hoc signature changes with
 # every build, so a grant given to one build is thrown away by the next one and
 # the user is asked again. A Developer ID keeps the grant.
-IDENTITY="${DOCKDOCK_SIGN_IDENTITY:-}"
+IDENTITY="${SHELFIE_SIGN_IDENTITY:-}"
 if [ -z "$IDENTITY" ]; then
     # No Developer ID is not an error: fall through to ad-hoc signing.
     IDENTITY=$(security find-identity -v -p codesigning 2>/dev/null \
         | awk -F'"' '/Developer ID Application/ { print $2; exit }' || true)
 fi
 
-ENTITLEMENTS="$ROOT/Resources/DockDock.entitlements"
+ENTITLEMENTS="$ROOT/Resources/Shelfie.entitlements"
 
 # Notarization needs the hardened runtime and a secure timestamp on every
 # piece of code. The timestamp comes from Apple's server, so offline builds
@@ -81,7 +82,7 @@ else
         && echo "Signed ad-hoc (privacy grants will not survive a rebuild)"
 fi
 
-NOTARY_PROFILE="${DOCKDOCK_NOTARY_PROFILE:-}"
+NOTARY_PROFILE="${SHELFIE_NOTARY_PROFILE:-}"
 if [ -n "$NOTARY_PROFILE" ]; then
     if [ "$SIGNED_WITH_ID" != 1 ] || [ "$TIMESTAMPED" != 1 ]; then
         echo "error: notarization needs a Developer ID signature with a secure timestamp" >&2
@@ -89,7 +90,7 @@ if [ -n "$NOTARY_PROFILE" ]; then
     fi
     codesign --verify --strict --deep "$APP"
 
-    ZIP="$ROOT/build/DockDock-notarize.zip"
+    ZIP="$ROOT/build/Shelfie-notarize.zip"
     LOG="$ROOT/build/notarytool.log"
     rm -f "$ZIP"
     ditto -c -k --keepParent "$APP" "$ZIP"
@@ -111,7 +112,7 @@ if [ -n "$NOTARY_PROFILE" ]; then
     xcrun stapler validate "$APP"
     echo "Notarized and stapled"
 else
-    echo "Not notarized (set DOCKDOCK_NOTARY_PROFILE to notarize)"
+    echo "Not notarized (set SHELFIE_NOTARY_PROFILE to notarize)"
 fi
 
 echo "$APP"

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Shelfie's app icon. Source for Resources/AppIcon.icns (regenerate with
+       scripts/make-icon.sh). The squircle sits on the macOS icon grid: 824 px
+       wide, centred, with room for the shadow. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14c8b0"/>
+      <stop offset="1" stop-color="#b6f05a"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.28"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+    <path id="squircle" d="M512 72c260 0 345 0 393 48s48 133 48 392 0 345-48 393-133 47-393 47-345 0-393-47S72 772 72 512s0-344 47-392S252 72 512 72Z"/>
+  </defs>
+  <g transform="translate(512 512) scale(0.93636) translate(-512 -512)">
+    <use href="#squircle" fill="url(#bg)" filter="url(#shadow)"/>
+    <use href="#squircle" fill="url(#sheen)"/>
+    <rect x="150" y="700" width="724" height="34" rx="17" fill="#0b4b43" fill-opacity="0.45"/>
+    <rect x="196" y="470" width="190" height="210" rx="48" fill="#fff" fill-opacity="0.7"/>
+    <rect x="638" y="510" width="190" height="170" rx="48" fill="#fff" fill-opacity="0.7"/>
+    <rect x="392" y="356" width="240" height="324" rx="60" fill="#fff"/>
+    <circle cx="465" cy="488" r="26" fill="#0e3b35"/>
+    <path d="M533 490q26-26 52 0" stroke="#0e3b35" stroke-width="22" stroke-linecap="round" fill="none"/>
+    <path d="M452 568q60 54 120 0" stroke="#0e3b35" stroke-width="22" stroke-linecap="round" fill="none"/>
+    <path d="M784 220c7 46 19 58 65 65-46 7-58 19-65 65-7-46-19-58-65-65 46-7 58-19 65-65Z" fill="#fff"/>
+    <circle cx="702" cy="372" r="14" fill="#fff"/>
+  </g>
+</svg>
