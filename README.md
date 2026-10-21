@@ -9,6 +9,7 @@ Requires macOS 26 (Tahoe) or later.
 ## Install
 
 ```bash
+brew trust akhil-gautam/tap
 brew tap akhil-gautam/tap
 brew install --cask shelfie
 ```
