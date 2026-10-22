@@ -1,8 +1,8 @@
-# Shelfie
+# Strata
 
 A widget bar for macOS that takes the Dock's place: app and folder launchers next to live tiles for time, calendar, weather, system stats, media, timers, AI coding agents and more.
 
-Shelfie was called DockDock until 0.2.0.
+Strata was called Shelfie until 0.3.0, and DockDock before that.
 
 Requires macOS 26 (Tahoe) or later.
 
@@ -11,10 +11,10 @@ Requires macOS 26 (Tahoe) or later.
 ```bash
 brew trust akhil-gautam/tap
 brew tap akhil-gautam/tap
-brew install --cask shelfie
+brew install --cask strata
 ```
 
-Shelfie is signed with a Developer ID but not notarized yet, so the cask removes the download quarantine flag. macOS may still ask you to confirm the first launch in System Settings › Privacy & Security.
+Strata is signed with a Developer ID but not notarized yet, so the cask removes the download quarantine flag. macOS may still ask you to confirm the first launch in System Settings › Privacy & Security.
 
 ## What it does
 
@@ -23,8 +23,8 @@ Shelfie is signed with a Developer ID but not notarized yet, so the cask removes
 - **Tiles:** 110+ in the widget library: clocks and timers, calendar and reminders, weather, CPU / RAM / network / battery, now playing, clipboard history, screenshots, quick toggles, Keep Awake, a Settings gear, stocks, and service tiles (Stripe, Polar, DataFast, X, YouTube…).
 - **Extensions** (Settings › Extensions):
   - **AI Usage:** Claude Code and Codex rate limits, token usage, and a live Agent Status tile for Claude Code, Codex and omp sessions.
-  - **Script Tiles:** any executable in `~/Library/Application Support/Shelfie/Scripts` becomes a tile (xbar-style text or JSON). Scripts run only after you approve them.
-- **Automation:** global shortcuts (⌃⌥D bar, ⌃⌥W widgets), `shelfie://` links (`show`, `hide`, `toggle`, `library`, `settings`, `focus/start`, `focus/pause`, `awake/on`, `awake/off`, `refresh`), launch at login.
+  - **Script Tiles:** any executable in `~/Library/Application Support/Strata/Scripts` becomes a tile (xbar-style text or JSON). Scripts run only after you approve them.
+- **Automation:** global shortcuts (⌃⌥D bar, ⌃⌥W widgets), `strata://` links (`show`, `hide`, `toggle`, `library`, `settings`, `focus/start`, `focus/pause`, `awake/on`, `awake/off`, `refresh`), launch at login.
 
 Permissions are asked for only when a tile needs them (Calendar, Reminders, Photos, Contacts, Accessibility for badges and window lists, Automation for Mail and media players).
 
@@ -32,8 +32,8 @@ Permissions are asked for only when a tile needs them (Calendar, Reminders, Phot
 
 ```bash
 swift build -c release
-scripts/build-app.sh release      # assembles and signs build/Shelfie.app
-open build/Shelfie.app
+scripts/build-app.sh release      # assembles and signs build/Strata.app
+open build/Strata.app
 ```
 
-Set `SHELFIE_NOTARY_PROFILE` to a `notarytool` keychain profile to notarize and staple the build.
+Set `STRATA_NOTARY_PROFILE` to a `notarytool` keychain profile to notarize and staple the build.

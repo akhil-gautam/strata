@@ -2,15 +2,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Shelfie",
+    name: "Strata",
     platforms: [.macOS("26.0")],
     products: [
-        .executable(name: "Shelfie", targets: ["Shelfie"])
+        .executable(name: "Strata", targets: ["Strata"])
     ],
     targets: [
         .executableTarget(
-            name: "Shelfie",
-            path: "Sources/Shelfie",
+            name: "Strata",
+            path: "Sources/Strata",
             swiftSettings: [.swiftLanguageMode(.v6)]
         )
     ]

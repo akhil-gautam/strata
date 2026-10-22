@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shelfie: logo and name options, round 2</title>
+<style>
+  :root {
+    --bg: #f4f2ee;
+    --ink: #1b1a19;
+    --muted: #77736c;
+    --card: #fbfaf8;
+    --line: oklch(0 0 0 / 0.07);
+    --chip: oklch(0.5 0 0 / 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #121212; --ink: #f2f0ec; --muted: #9b968e; --card: #1a1a1a; --line: oklch(1 0 0 / 0.07); --chip: oklch(1 0 0 / 0.05); }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header { max-width: 1200px; margin: 0 auto; padding: 64px 32px 8px; }
+  header h1 { font: 600 44px/1.05 -apple-system, "SF Pro Display", system-ui; letter-spacing: -0.03em; margin: 0 0 12px; text-wrap: balance; }
+  header p { color: var(--muted); font-size: 16px; line-height: 1.5; margin: 0; max-width: 700px; text-wrap: pretty; }
+  main { max-width: 1200px; margin: 0 auto; padding: 36px 32px 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px; }
+  .card {
+    background: var(--card); border-radius: 30px; padding: 30px;
+    box-shadow: 0 0 0 1px var(--line), 0 1px 2px oklch(0 0 0 / 0.04), 0 12px 32px oklch(0 0 0 / 0.05);
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .top { display: flex; justify-content: space-between; align-items: baseline; }
+  .num { font: 600 12px/1 ui-monospace, "SF Mono", monospace; color: var(--muted); letter-spacing: 0.06em; }
+  .swatches { display: flex; gap: 6px; }
+  .swatches i { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.12); }
+  .stage { display: grid; place-items: center; padding: 28px 0 22px; border-radius: 22px; background: var(--chip); }
+  .stage svg.icon { width: 168px; height: 168px; filter: drop-shadow(0 14px 22px oklch(0 0 0 / 0.18)) drop-shadow(0 2px 4px oklch(0 0 0 / 0.08)); }
+  .lockup { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .lockup svg { width: 34px; height: 34px; }
+  .word { font-size: 30px; line-height: 1; }
+  .tag { margin: 0; color: var(--muted); font-size: 14px; }
+  .why { margin: 0; font-size: 14px; line-height: 1.55; text-wrap: pretty; }
+  .sizes { display: flex; align-items: flex-end; gap: 16px; }
+  .sizes .lbl { margin-left: auto; font: 11px ui-monospace, monospace; color: var(--muted); align-self: center; }
+  .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .menubar { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 12.5px; font-weight: 500; background: #e7e5e1; color: #1d1d1f; }
+  .menubar.dark { background: #26262a; color: #f2f2f4; }
+  .menubar svg { width: 16px; height: 16px; flex: none; }
+  .menubar .sp { margin-left: auto; opacity: 0.55; font-variant-numeric: tabular-nums; }
+  footer { max-width: 1200px; margin: 0 auto; padding: 0 32px 72px; color: var(--muted); font-size: 13px; }
+
+  /* Wordmarks: one type treatment per name. */
+  .w-shelfie { font: 600 30px -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing: -0.03em; }
+  .w-ledge { font: 700 30px -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing: -0.04em; }
+  .w-sill { font: 500 32px ui-serif, "New York", Georgia, serif; letter-spacing: -0.01em; }
+  .w-bento { font: 600 30px ui-rounded, "SF Pro Rounded", system-ui; letter-spacing: -0.02em; }
+  .w-perch { font: 600 31px ui-serif, "New York", Georgia, serif; font-style: italic; letter-spacing: -0.01em; }
+  .w-mantel { font: 500 22px ui-serif, "New York", Georgia, serif; letter-spacing: 0.32em; text-transform: uppercase; }
+  .w-rail { font: 500 30px -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing: 0.02em; }
+  .w-strata { font: 300 22px -apple-system, "SF Pro Display", system-ui, sans-serif; letter-spacing: 0.42em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- The macOS app squircle on a 1024 canvas. -->
+    <path id="sq" d="M512 72c260 0 345 0 393 48s48 133 48 392 0 345-48 393-133 47-393 47-345 0-393-47S72 772 72 512s0-344 47-392S252 72 512 72Z"/>
+    <linearGradient id="lift" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.16"/><stop offset="0.45" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="lift-soft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.6"/><stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="g-graphite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#303034"/><stop offset="1" stop-color="#151517"/></linearGradient>
+    <linearGradient id="g-paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8f5ee"/><stop offset="1" stop-color="#e8e2d5"/></linearGradient>
+    <linearGradient id="g-navy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2f52"/><stop offset="1" stop-color="#0d1629"/></linearGradient>
+    <linearGradient id="g-onyx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1e20"/><stop offset="1" stop-color="#0a0a0b"/></linearGradient>
+    <linearGradient id="g-sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ede3"/><stop offset="1" stop-color="#e2d8c7"/></linearGradient>
+    <linearGradient id="g-forest" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#28493f"/><stop offset="1" stop-color="#12261f"/></linearGradient>
+    <linearGradient id="g-slate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#454c55"/><stop offset="1" stop-color="#1d2126"/></linearGradient>
+    <linearGradient id="g-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ecebe8"/></linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3c98f"/><stop offset="1" stop-color="#b98f4a"/></linearGradient>
+
+    <!-- 01 Shelfie, refined: three tiles of different widths on one shelf. -->
+    <symbol id="i-shelfie" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-graphite)"/><use href="#sq" fill="url(#lift)"/>
+      <rect x="232" y="486" width="140" height="140" rx="36" fill="#f5f5f7"/>
+      <rect x="396" y="430" width="232" height="196" rx="42" fill="#8fe3c8"/>
+      <rect x="652" y="486" width="140" height="140" rx="36" fill="#f5f5f7" fill-opacity="0.45"/>
+      <rect x="212" y="652" width="600" height="20" rx="10" fill="#f5f5f7" fill-opacity="0.9"/>
+    </symbol>
+    <symbol id="m-shelfie" viewBox="0 0 16 16">
+      <rect x="1.5" y="6.5" width="3" height="3" rx="0.9" fill="currentColor" opacity="0.6"/>
+      <rect x="5.5" y="5" width="5" height="4.5" rx="1.1" fill="currentColor"/>
+      <rect x="11.5" y="6.5" width="3" height="3" rx="0.9" fill="currentColor" opacity="0.6"/>
+      <rect x="1" y="11" width="14" height="1.6" rx="0.8" fill="currentColor"/>
+    </symbol>
+
+    <!-- 02 Ledge: one heavy ledge, one object resting on it. -->
+    <symbol id="i-ledge" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-paper)"/><use href="#sq" fill="url(#lift-soft)"/><use href="#sq" fill="none" stroke="#000" stroke-opacity="0.07" stroke-width="4"/>
+      <rect x="196" y="612" width="632" height="60" rx="30" fill="#1d1c1a"/>
+      <circle cx="664" cy="534" r="78" fill="#c4553d"/>
+    </symbol>
+    <symbol id="m-ledge" viewBox="0 0 16 16">
+      <rect x="1.5" y="10" width="13" height="2.6" rx="1.3" fill="currentColor"/>
+      <circle cx="10.8" cy="7" r="2.2" fill="currentColor"/>
+    </symbol>
+
+    <!-- 03 Sill: a window, and a few things set on its sill. -->
+    <symbol id="i-sill" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-navy)"/><use href="#sq" fill="url(#lift)"/>
+      <path d="M266 640V296a56 56 0 0 1 56-56h380a56 56 0 0 1 56 56v344" fill="none" stroke="#ece6da" stroke-opacity="0.85" stroke-width="20"/>
+      <rect x="338" y="540" width="96" height="96" rx="24" fill="#ece6da" fill-opacity="0.85"/>
+      <rect x="464" y="480" width="96" height="156" rx="24" fill="url(#brass)"/>
+      <rect x="590" y="540" width="96" height="96" rx="24" fill="#ece6da" fill-opacity="0.85"/>
+      <rect x="216" y="640" width="592" height="40" rx="20" fill="url(#brass)"/>
+    </symbol>
+    <symbol id="m-sill" viewBox="0 0 16 16">
+      <path d="M3.5 10.5V3.8a1.3 1.3 0 0 1 1.3-1.3h6.4a1.3 1.3 0 0 1 1.3 1.3v6.7" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      <rect x="7" y="6.4" width="2" height="4" rx="0.6" fill="currentColor"/>
+      <rect x="1.5" y="11" width="13" height="1.8" rx="0.9" fill="currentColor"/>
+    </symbol>
+
+    <!-- 04 Bento: the widget grid, one compartment lit. -->
+    <symbol id="i-bento" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-onyx)"/><use href="#sq" fill="url(#lift)"/>
+      <rect x="232" y="232" width="344" height="196" rx="46" fill="#f4f2ee"/>
+      <rect x="600" y="232" width="192" height="196" rx="46" fill="#f4f2ee" fill-opacity="0.3"/>
+      <rect x="232" y="452" width="196" height="340" rx="46" fill="#f4f2ee" fill-opacity="0.3"/>
+      <rect x="452" y="452" width="340" height="340" rx="46" fill="#e7d3a8"/>
+    </symbol>
+    <symbol id="m-bento" viewBox="0 0 16 16">
+      <rect x="2" y="2" width="6.8" height="4.2" rx="1.2" fill="currentColor"/>
+      <rect x="9.8" y="2" width="4.2" height="4.2" rx="1.2" fill="currentColor" opacity="0.45"/>
+      <rect x="2" y="7.2" width="4.2" height="6.8" rx="1.2" fill="currentColor" opacity="0.45"/>
+      <rect x="7.2" y="7.2" width="6.8" height="6.8" rx="1.2" fill="currentColor"/>
+    </symbol>
+
+    <!-- 05 Perch: a MacBook, and the island perched at its notch. -->
+    <symbol id="i-perch" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-sand)"/><use href="#sq" fill="url(#lift-soft)"/><use href="#sq" fill="none" stroke="#000" stroke-opacity="0.07" stroke-width="4"/>
+      <rect x="226" y="276" width="572" height="404" rx="40" fill="none" stroke="#2a2622" stroke-width="22"/>
+      <path d="M402 276h220v26a40 40 0 0 1-40 40H442a40 40 0 0 1-40-40Z" fill="#2a2622"/>
+      <circle cx="584" cy="309" r="10" fill="#5fd0a2"/>
+      <rect x="176" y="704" width="672" height="28" rx="14" fill="#2a2622"/>
+    </symbol>
+    <symbol id="m-perch" viewBox="0 0 16 16">
+      <rect x="2.6" y="3" width="10.8" height="8" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M6 3h4v.8A1.2 1.2 0 0 1 8.8 5H7.2A1.2 1.2 0 0 1 6 3.8Z" fill="currentColor"/>
+      <rect x="1" y="12" width="14" height="1.5" rx="0.75" fill="currentColor"/>
+    </symbol>
+
+    <!-- 06 Mantel: a clock, a vase and a frame on a brass mantelpiece. -->
+    <symbol id="i-mantel" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-forest)"/><use href="#sq" fill="url(#lift)"/>
+      <circle cx="322" cy="532" r="84" fill="none" stroke="url(#brass)" stroke-width="18"/>
+      <path d="M322 532v-46M322 532l30 22" stroke="url(#brass)" stroke-width="16" stroke-linecap="round"/>
+      <rect x="452" y="388" width="118" height="228" rx="36" fill="url(#brass)"/>
+      <rect x="616" y="500" width="116" height="116" rx="28" fill="none" stroke="url(#brass)" stroke-width="18"/>
+      <rect x="182" y="640" width="660" height="30" rx="15" fill="url(#brass)"/>
+    </symbol>
+    <symbol id="m-mantel" viewBox="0 0 16 16">
+      <circle cx="4.4" cy="8.3" r="2.1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="7.2" y="4.8" width="2.2" height="5.6" rx="0.8" fill="currentColor"/>
+      <rect x="10.8" y="7.3" width="2.8" height="2.8" rx="0.7" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="1" y="11.4" width="14" height="1.5" rx="0.75" fill="currentColor"/>
+    </symbol>
+
+    <!-- 07 Rail: the bar itself, low on a quiet desktop. -->
+    <symbol id="i-rail" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-slate)"/><use href="#sq" fill="url(#lift)"/>
+      <rect x="176" y="596" width="672" height="160" rx="56" fill="#fff" fill-opacity="0.12"/>
+      <rect x="176" y="596" width="672" height="160" rx="56" fill="none" stroke="#fff" stroke-opacity="0.22" stroke-width="4"/>
+      <rect x="206" y="626" width="100" height="100" rx="28" fill="#f2f4f7"/>
+      <rect x="326" y="626" width="100" height="100" rx="28" fill="#f2f4f7" fill-opacity="0.55"/>
+      <rect x="446" y="626" width="252" height="100" rx="28" fill="#a9cdf6"/>
+      <rect x="718" y="626" width="100" height="100" rx="28" fill="#f2f4f7" fill-opacity="0.55"/>
+    </symbol>
+    <symbol id="m-rail" viewBox="0 0 16 16">
+      <rect x="1" y="9" width="14" height="4.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="2.6" y="10.6" width="2" height="1.4" rx="0.5" fill="currentColor"/>
+      <rect x="5.6" y="10.6" width="5" height="1.4" rx="0.5" fill="currentColor"/>
+      <rect x="11.6" y="10.6" width="1.8" height="1.4" rx="0.5" fill="currentColor"/>
+    </symbol>
+
+    <!-- 08 Strata: widgets layered up to the bar. -->
+    <symbol id="i-strata" viewBox="0 0 1024 1024">
+      <use href="#sq" fill="url(#g-white)"/><use href="#sq" fill="none" stroke="#000" stroke-opacity="0.08" stroke-width="4"/>
+      <rect x="322" y="296" width="380" height="92" rx="46" fill="#1d1c1a" fill-opacity="0.18"/>
+      <rect x="262" y="424" width="500" height="104" rx="52" fill="#1d1c1a" fill-opacity="0.45"/>
+      <rect x="196" y="566" width="632" height="132" rx="66" fill="#1d1c1a"/>
+    </symbol>
+    <symbol id="m-strata" viewBox="0 0 16 16">
+      <rect x="5" y="2.8" width="6" height="2" rx="1" fill="currentColor" opacity="0.4"/>
+      <rect x="3.5" y="6.2" width="9" height="2.4" rx="1.2" fill="currentColor" opacity="0.7"/>
+      <rect x="1.5" y="10" width="13" height="3" rx="1.5" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <h1>Logo and name options, round two</h1>
+  <p>Eight quieter directions: one idea per mark, two or three colours at most, and a lockup with its own typeface. Every mark says what the app does: a row of things set on an edge of your screen. Each card shows the app icon, the icon at 64, 32 and 16&nbsp;px, and the one-colour menu bar glyph.</p>
+</header>
+
+<main>
+  <section class="card">
+    <div class="top"><span class="num">01 · keep the name</span><span class="swatches"><i style="background:#232326"></i><i style="background:#8fe3c8"></i><i style="background:#f5f5f7"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-shelfie"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-shelfie"/></svg><span class="word w-shelfie">Shelfie</span></div></div>
+    <p class="tag">Your widgets, on a shelf.</p>
+    <p class="why">The same name, grown up. Three tiles of different widths standing on one line: the bar, drawn as plainly as it gets. Graphite with a single mint tile.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-shelfie"/></svg><svg width="32" height="32"><use href="#i-shelfie"/></svg><svg width="16" height="16"><use href="#i-shelfie"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-shelfie"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-shelfie"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">02</span><span class="swatches"><i style="background:#f1ece2"></i><i style="background:#1d1c1a"></i><i style="background:#c4553d"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-ledge"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-ledge"/></svg><span class="word w-ledge">Ledge</span></div></div>
+    <p class="tag">Everything you need, at the edge.</p>
+    <p class="why">The most reduced of the set: one heavy ledge and one thing resting on it. Swiss-poster calm on warm paper, with a single terracotta dot.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-ledge"/></svg><svg width="32" height="32"><use href="#i-ledge"/></svg><svg width="16" height="16"><use href="#i-ledge"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-ledge"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-ledge"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">03</span><span class="swatches"><i style="background:#16223d"></i><i style="background:#d7b673"></i><i style="background:#ece6da"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-sill"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-sill"/></svg><span class="word w-sill">Sill</span></div></div>
+    <p class="tag">A place to set things down.</p>
+    <p class="why">Your screen is the window; the bar is its sill, where you keep a clock, a note, the weather. Navy and brass, set in New York.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-sill"/></svg><svg width="32" height="32"><use href="#i-sill"/></svg><svg width="16" height="16"><use href="#i-sill"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-sill"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-sill"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">04</span><span class="swatches"><i style="background:#141415"></i><i style="background:#e7d3a8"></i><i style="background:#f4f2ee"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-bento"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-bento"/></svg><span class="word w-bento">Bento</span></div></div>
+    <p class="tag">A neat box of everything.</p>
+    <p class="why">Widgets of every size, packed edge to edge, the way the bar packs its tiles. Onyx with one champagne compartment. Stays legible at 16&nbsp;px.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-bento"/></svg><svg width="32" height="32"><use href="#i-bento"/></svg><svg width="16" height="16"><use href="#i-bento"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-bento"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-bento"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">05</span><span class="swatches"><i style="background:#ece4d6"></i><i style="background:#2a2622"></i><i style="background:#5fd0a2"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-perch"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-perch"/></svg><span class="word w-perch">Perch</span></div></div>
+    <p class="tag">Sits up top. Sees everything.</p>
+    <p class="why">A MacBook in outline, with the island perched at its notch and one small status light. The only mark here about the notch mode.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-perch"/></svg><svg width="32" height="32"><use href="#i-perch"/></svg><svg width="16" height="16"><use href="#i-perch"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-perch"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-perch"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">06</span><span class="swatches"><i style="background:#1d382f"></i><i style="background:#cfab6b"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-mantel"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-mantel"/></svg><span class="word w-mantel">Mantel</span></div></div>
+    <p class="tag">The good things, on display.</p>
+    <p class="why">A clock, a vase and a frame on a brass mantelpiece, as if for a library. Forest green and brass, with spaced serif capitals.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-mantel"/></svg><svg width="32" height="32"><use href="#i-mantel"/></svg><svg width="16" height="16"><use href="#i-mantel"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-mantel"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-mantel"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">07</span><span class="swatches"><i style="background:#30363e"></i><i style="background:#a9cdf6"></i><i style="background:#f2f4f7"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-rail"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-rail"/></svg><span class="word w-rail">Rail</span></div></div>
+    <p class="tag">The Dock, reconsidered.</p>
+    <p class="why">The literal one: the bar sitting low on a quiet desktop, one wide widget among app tiles. Anyone who sees it knows what the app replaces.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-rail"/></svg><svg width="32" height="32"><use href="#i-rail"/></svg><svg width="16" height="16"><use href="#i-rail"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-rail"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-rail"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+
+  <section class="card">
+    <div class="top"><span class="num">08</span><span class="swatches"><i style="background:#f7f6f3"></i><i style="background:#1d1c1a"></i></span></div>
+    <div class="stage"><svg class="icon" viewBox="0 0 1024 1024"><use href="#i-strata"/></svg>
+      <div class="lockup"><svg viewBox="0 0 1024 1024"><use href="#i-strata"/></svg><span class="word w-strata">Strata</span></div></div>
+    <p class="tag">Layers of your day.</p>
+    <p class="why">Three bars, light to dark, building up to the one you use. Black on white and nothing else: the most typographic, quietest option.</p>
+    <div class="sizes"><svg width="64" height="64"><use href="#i-strata"/></svg><svg width="32" height="32"><use href="#i-strata"/></svg><svg width="16" height="16"><use href="#i-strata"/></svg><span class="lbl">64 · 32 · 16</span></div>
+    <div class="bars"><div class="menubar"><svg><use href="#m-strata"/></svg><span class="sp">9:41</span></div><div class="menubar dark"><svg><use href="#m-strata"/></svg><span class="sp">9:41</span></div></div>
+  </section>
+</main>
+
+<footer>Any mark can take any name. No trademark or App Store name searches have been run yet.</footer>
+</body>
+</html>
