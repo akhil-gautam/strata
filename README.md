@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/akhil-gautam/strata/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/akhil-gautam/strata?style=flat-square&label=release&color=1d1c1a"></a>
-  <img alt="macOS 26 Tahoe or later" src="https://img.shields.io/badge/macOS-26%2B-1d1c1a?style=flat-square&logo=apple&logoColor=white">
+  <img alt="macOS 26+" src="https://img.shields.io/badge/macOS-26%2B-1d1c1a?style=flat-square&logo=apple&logoColor=white">
   <img alt="Swift 6" src="https://img.shields.io/badge/Swift-6-1d1c1a?style=flat-square&logo=swift&logoColor=white">
   <a href="#install"><img alt="Install with Homebrew" src="https://img.shields.io/badge/brew-strata-1d1c1a?style=flat-square&logo=homebrew&logoColor=white"></a>
 </p>
@@ -47,7 +47,7 @@ brew tap akhil-gautam/tap
 brew install --cask strata
 ```
 
-Requires **macOS 26 (Tahoe)** or later. Strata is signed with a Developer ID but not notarized yet, so the cask removes the download quarantine flag; macOS may still ask you to confirm the first launch in **System Settings › Privacy & Security**.
+Requires **macOS 26+ (Tahoe and later)**. Strata is signed with a Developer ID but not notarized yet, so the cask removes the download quarantine flag; macOS may still ask you to confirm the first launch in **System Settings › Privacy & Security**.
 
 To update: `brew upgrade --cask strata`.
 
@@ -158,4 +158,4 @@ Set `STRATA_NOTARY_PROFILE` to a `notarytool` keychain profile to notarize and s
 
 <br>
 
-<p align="center"><sub>Made with SwiftUI and AppKit for macOS 26.</sub></p>
+<p align="center"><sub>Made with SwiftUI and AppKit for macOS 26+.</sub></p>
