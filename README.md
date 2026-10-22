@@ -95,7 +95,7 @@ To update: `brew upgrade --cask strata`.
 
 ### Dock essentials
 
-- **AI Usage.** Claude Code and Codex rate limits with reset countdowns, today's tokens with a 7-day sparkline, and **Agent Status**: a live view of every Claude Code, Codex and omp session (working, needs you, done), with a notification when a long turn needs you or finishes. It reads Claude Code's own sign-in and the agents' local logs, so there's nothing to paste.
+- Pinned apps with running dots and **notification badges**.
 - Right-click an app for its **window list**, Hide, Quit and Force Quit.
 - **Drop files** on an app to open them with it; Running Apps and Trash tiles.
 
@@ -115,14 +115,14 @@ To update: `brew upgrade --cask strata`.
 
 Switch these on in **Settings › Extensions**.
 
-- **AI Usage.** Claude Code and Codex rate limits with reset countdowns, today's tokens with a 7-day sparkline, and **Agent Status**: a live view of every Claude Code, Codex and omp session (working, needs you, done), with a notification when one needs you. It reads Claude Code's own sign-in and the agents' local logs, so there's nothing to paste.
+- **AI Usage.** Claude Code and Codex rate limits with reset countdowns, today's tokens with a 7-day sparkline, and **Agent Status**: a live view of every Claude Code, Codex and omp session (working, needs you, done), with a notification when a long turn needs you or finishes. It reads Claude Code's own sign-in and the agents' local logs, so there's nothing to paste.
 - **Script Tiles.** Drop any executable into `~/Library/Application Support/Strata/Scripts` and it becomes a tile. Name it like an xbar plugin (`weather.5m.sh` runs every 5 minutes) and print text or JSON. A script never runs until you approve it, and editing it asks again.
 
 ```json
 { "value": "86%", "caption": "battery", "icon": "battery.75percent", "progress": 0.86 }
 ```
 
-- **No accounts, no analytics.** Everything runs on your Mac. Network tiles fetch only their own data (weather, quotes, Claude limits and the services you connect), and the keys you paste are stored in your keychain.
+## Automation
 
 | Shortcut | Action |
 |---|---|
@@ -142,7 +142,7 @@ open strata://awake/on      # awake/off
 
 ## Privacy and performance
 
-- **No accounts, no analytics.** Everything runs on your Mac. Network tiles fetch only their own data (weather, quotes, and the services you connect), and the keys you paste are stored in your keychain.
+- **No accounts, no analytics.** Everything runs on your Mac. Network tiles fetch only their own data (weather, quotes, Claude limits and the services you connect), and the keys you paste are stored in your keychain.
 - **Permissions are asked for only when a tile needs them:** Calendar, Reminders, Photos, Contacts, Accessibility (badges and window lists) and Automation (Mail, media players).
 - **Light.** Measured on a 14-inch MacBook Pro: about 1% CPU and under 65 MB of memory with every extension tile on the bar. Services only run for tiles that are on your bar.
 
