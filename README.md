@@ -101,7 +101,7 @@ To update: `brew upgrade --cask strata`.
 
 ### 110+ tiles
 
-| | |
+| Kind | Tiles |
 |---|---|
 | **Clocks & timers** | Digital, analog, flip and world clocks · stopwatch · timer · Pomodoro · Keep Awake |
 | **Calendar** | Today, next event, week and agenda · next meeting with a Join button · Meeting Center with mic mute and camera check · reminders |
