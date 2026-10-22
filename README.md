@@ -1,6 +1,12 @@
-# Strata
+<p align="center">
+  <img src="Resources/AppIcon.svg" width="128" height="128" alt="Strata icon">
+</p>
 
-A widget bar for macOS that takes the Dock's place: app and folder launchers next to live tiles for time, calendar, weather, system stats, media, timers, AI coding agents and more.
+<h1 align="center">Strata</h1>
+
+<p align="center">A widget bar for macOS that takes the Dock's place: app and folder launchers next to live tiles for time, calendar, weather, system stats, media, timers, AI coding agents and more.</p>
+
+![Strata's bar at the bottom of the screen: clock, weather, focus timer, Codex limits, CPU chart, stock watchlist, Claude token count and Keep Awake](docs/screenshots/hero.jpg)
 
 Strata was called Shelfie until 0.3.0, and DockDock before that.
 
@@ -27,6 +33,26 @@ Strata is signed with a Developer ID but not notarized yet, so the cask removes 
 - **Automation:** global shortcuts (⌃⌥D bar, ⌃⌥W widgets), `strata://` links (`show`, `hide`, `toggle`, `library`, `settings`, `focus/start`, `focus/pause`, `awake/on`, `awake/off`, `refresh`), launch at login.
 
 Permissions are asked for only when a tile needs them (Calendar, Reminders, Photos, Contacts, Accessibility for badges and window lists, Automation for Mail and media players).
+
+## A look around
+
+**At the notch.** In Island style the bar folds into the camera housing. Hover and it opens with a soft glow; while it's closed, small "ears" beside the notch show what's going on: a coding agent that needs you, a focus timer, Keep Awake, music.
+
+![The notch island open, showing the date, widgets and settings buttons above a row of tiles; below it, the closed island with a coffee cup and a Keep Awake countdown](docs/screenshots/island.jpg)
+
+**Twenty themes.** Each one restyles the bar, its tiles, the widget library and every settings popover. Here are Midnight, Daylight, Paper, Nord and Sunset.
+
+![The same bar in five themes: Midnight, Daylight, Paper, Nord and Sunset](docs/screenshots/themes.jpg)
+
+**The widget library.** Search 110+ tiles and click one to add it. While the library is open, every bar tile shows a remove badge, and you can drag tiles to reorder them.
+
+![The widget library filtered to "usage", showing Cursor and AI usage tiles, above the bar in edit mode](docs/screenshots/library.jpg)
+
+**Any edge.** Put the bar at the bottom, the notch, or down the left or right side, where tiles pack into neat rows.
+
+![A vertical bar on the left edge in the Dracula theme](docs/screenshots/vertical.jpg)
+
+![The Themes page in Strata's Settings window](docs/screenshots/settings.jpg)
 
 ## Build from source
 
