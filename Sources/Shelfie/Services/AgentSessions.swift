@@ -132,7 +132,8 @@ final class AgentSessions {
         scanning = true
         let memory = self.memory
         let scan = await Task.detached(priority: .utility) {
-            AgentScanner.scan(memory: memory, now: Date())
+            // JSON parsing autoreleases; drain it with each scan.
+            autoreleasepool { AgentScanner.scan(memory: memory, now: Date()) }
         }.value
         self.memory = scan.memory
         scannedAt = Date()
@@ -314,10 +315,11 @@ final class AgentSessions {
         }
     }
 
-    /// "12s", "4m", "1h 5m", "2d".
+    /// "<1m", "4m", "1h 5m", "2d". Minutes only: the tile redraws once a
+    /// minute.
     static func elapsed(since date: Date, now: Date) -> String {
         let seconds = max(0, Int(now.timeIntervalSince(date)))
-        if seconds < 60 { return "\(seconds)s" }
+        if seconds < 60 { return "<1m" }
         let minutes = seconds / 60
         if minutes < 60 { return "\(minutes)m" }
         let hours = minutes / 60
@@ -359,6 +361,38 @@ struct AgentScanMemory: Sendable {
     /// pid → the host app's bundle identifier ("" for none).
     var hostBundles: [pid_t: String] = [:]
 
+    /// A log's parsed tail, kept while the file is unchanged. Re-parsing
+    /// every log every 2 s cost about 60 ms a scan with a few large omp
+    /// sessions open; most scans now read nothing.
+    struct Parsed<Value: Sendable>: Sendable {
+        var size: UInt64
+        var modified: Date
+        var value: Value?
+    }
+
+    var claudeLogs: [String: Parsed<ClaudeLog>] = [:]
+    var codexLogs: [String: Parsed<CodexLog>] = [:]
+    var ompLogs: [String: Parsed<OmpLog>] = [:]
+    /// omp log path → its title line.
+    var ompTitles: [String: Parsed<String>] = [:]
+
+    /// `parse()`'s result for the file, from the cache when the file has
+    /// neither grown nor been touched since the last parse.
+    mutating func parsed<Value: Sendable>(
+        _ cache: WritableKeyPath<AgentScanMemory, [String: Parsed<Value>]>,
+        path: String,
+        size: UInt64,
+        modified: Date,
+        parse: () -> Value?
+    ) -> Value? {
+        if let known = self[keyPath: cache][path], known.size == size, known.modified == modified {
+            return known.value
+        }
+        let value = autoreleasepool { parse() }
+        self[keyPath: cache][path] = Parsed(size: size, modified: modified, value: value)
+        return value
+    }
+
     /// Seconds since the file last grew, as far as scans have seen.
     mutating func quiet(_ path: String, size: UInt64, modified: Date, now: Date) -> TimeInterval {
         if let known = growth[path], known.size == size {
@@ -374,6 +408,10 @@ struct AgentScanMemory: Sendable {
         codexThreads = codexThreads.filter { paths.contains($0.key) }
         codexPolicy = codexPolicy.filter { paths.contains($0.key) }
         codexTurnStart = codexTurnStart.filter { paths.contains($0.key) }
+        claudeLogs = claudeLogs.filter { paths.contains($0.key) }
+        codexLogs = codexLogs.filter { paths.contains($0.key) }
+        ompLogs = ompLogs.filter { paths.contains($0.key) }
+        ompTitles = ompTitles.filter { paths.contains($0.key) }
         hostBundles = hostBundles.filter { pids.contains($0.key) }
     }
 }
@@ -472,7 +510,10 @@ struct AgentScanner {
         if let url, let file = AgentFile(url) {
             paths.insert(url.path)
             quiet = memory.quiet(url.path, size: file.size, modified: file.modified, now: now)
-            log = ClaudeLog.read(url, size: file.size, dates: dates)
+            let dates = dates
+            log = memory.parsed(\.claudeLogs, path: url.path, size: file.size, modified: file.modified) {
+                ClaudeLog.read(url, size: file.size, dates: dates)
+            }
         }
 
         let state: AgentSession.State
@@ -611,7 +652,11 @@ struct AgentScanner {
         paths.insert(url.path)
         guard let thread = codexThread(url), !thread.isSubagent else { return }
         let quiet = memory.quiet(url.path, size: file.size, modified: file.modified, now: now)
-        guard let log = CodexLog.read(url, size: file.size, dates: dates, knowsStart: memory.codexTurnStart[url.path] != nil) else {
+        let dates = dates
+        let knowsStart = memory.codexTurnStart[url.path] != nil
+        guard let log = memory.parsed(\.codexLogs, path: url.path, size: file.size, modified: file.modified, parse: {
+            CodexLog.read(url, size: file.size, dates: dates, knowsStart: knowsStart)
+        }) else {
             idle += 1
             return
         }
@@ -749,7 +794,10 @@ struct AgentScanner {
         guard let file = AgentFile(url) else { return }
         paths.insert(url.path)
         var quiet = memory.quiet(url.path, size: file.size, modified: file.modified, now: now)
-        guard let log = OmpLog.read(url, size: file.size, dates: dates) else {
+        let dates = dates
+        guard let log = memory.parsed(\.ompLogs, path: url.path, size: file.size, modified: file.modified, parse: {
+            OmpLog.read(url, size: file.size, dates: dates)
+        }) else {
             idle += 1
             return
         }
@@ -780,7 +828,9 @@ struct AgentScanner {
             id: "omp:\(id)",
             tool: .omp,
             cwd: cwd,
-            name: OmpLog.title(url),
+            // omp rewrites the padded title line in place, so the title is
+            // cached against the file's state like the log.
+            name: memory.parsed(\.ompTitles, path: url.path, size: file.size, modified: file.modified) { OmpLog.title(url) },
             state: log.state,
             since: log.since,
             activity: log.activity ?? (log.state == .working ? "Thinking" : log.state.title),

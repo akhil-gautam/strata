@@ -552,10 +552,10 @@ private struct AgentStatusTile: View {
 
     var body: some View {
         let store = AgentSessions.shared
-        // Elapsed times tick by the second only while there is something to
-        // time; the samples are drawn relative to the timeline's date.
-        let ticks = context == .bar && !store.sessions.isEmpty
-        TimelineView(.periodic(from: .now, by: ticks ? 1 : 60)) { timeline in
+        // Elapsed times are shown to the minute, so the tile redraws once a
+        // minute; a scan that changes a session redraws it at once. The
+        // samples are drawn relative to the timeline's date.
+        TimelineView(.everyMinute) { timeline in
             let sessions = context == .library ? AgentStatusSample.sessions(now: timeline.date) : store.sessions
             DockTile(width: 230) {
                 content(sessions, now: timeline.date)
@@ -642,8 +642,9 @@ private struct AgentStatusTile: View {
     }
 }
 
-/// "● Working" in the brand colour with a pulsing dot, "! Needs you" in
-/// orange (red after a minute), "✓ Done" in green.
+/// "● Working" in the brand colour, "! Needs you" in orange (red after a
+/// minute), "✓ Done" in green. Nothing animates: a looping effect here kept
+/// the whole tile redrawing and cost about 16 % of a core.
 private struct AgentStatePill: View {
     var state: AgentSession.State
     var brand: Color
@@ -655,7 +656,6 @@ private struct AgentStatePill: View {
             case .working:
                 Image(systemName: "circle.fill")
                     .font(.system(size: 5))
-                    .symbolEffect(.pulse, options: .repeating)
             case .needsYou:
                 Image(systemName: "exclamationmark")
                     .font(.system(size: 7, weight: .heavy))

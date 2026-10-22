@@ -421,28 +421,36 @@ private enum AIUsageLines {
 
         var consumed = offset
         var carry = Data()
-        while let chunk = try? handle.read(upToCount: AIUsageScan.chunk), !chunk.isEmpty {
-            var buffer = carry
-            buffer.append(chunk)
-            let used = buffer.withUnsafeBytes { raw -> Int in
-                guard let base = raw.baseAddress else { return 0 }
-                return marker.withUnsafeBytes { needle -> Int in
-                    var start = 0
-                    while start < raw.count,
-                          let newline = memchr(base + start, 0x0A, raw.count - start) {
-                        let end = base.distance(to: UnsafeRawPointer(newline))
-                        let length = end - start
-                        if length > 0,
-                           memmem(base + start, length, needle.baseAddress, needle.count) != nil {
-                            body(Data(bytes: base + start, count: length))
+        // Each 4 MB chunk drains its own autorelease pool: the JSON objects
+        // parsed from it would otherwise pile up until the whole scan ends,
+        // which peaked at 1.2 GB on 2.5 GB of logs.
+        while true {
+            let done: Bool = autoreleasepool {
+                guard let chunk = try? handle.read(upToCount: AIUsageScan.chunk), !chunk.isEmpty else { return true }
+                var buffer = carry
+                buffer.append(chunk)
+                let used = buffer.withUnsafeBytes { raw -> Int in
+                    guard let base = raw.baseAddress else { return 0 }
+                    return marker.withUnsafeBytes { needle -> Int in
+                        var start = 0
+                        while start < raw.count,
+                              let newline = memchr(base + start, 0x0A, raw.count - start) {
+                            let end = base.distance(to: UnsafeRawPointer(newline))
+                            let length = end - start
+                            if length > 0,
+                               memmem(base + start, length, needle.baseAddress, needle.count) != nil {
+                                body(Data(bytes: base + start, count: length))
+                            }
+                            start = end + 1
                         }
-                        start = end + 1
+                        return start
                     }
-                    return start
                 }
+                consumed += UInt64(used)
+                carry = used < buffer.count ? buffer.subdata(in: used..<buffer.count) : Data()
+                return false
             }
-            consumed += UInt64(used)
-            carry = used < buffer.count ? buffer.subdata(in: used..<buffer.count) : Data()
+            if done { break }
         }
         return consumed
     }

@@ -706,14 +706,19 @@ private struct SystemWaterShape: Shape {
 }
 
 private struct SystemDrinkWaterTile: View {
+    /// The wave rolls while the pointer is over the tile and rests
+    /// otherwise: rolling all the time redrew the tile 15 times a second and
+    /// cost about 12 % of a core.
+    @State private var isHovering = false
+
     var body: some View {
         let timer = IntervalTimer.shared
         DockTile(width: 135, inset: 0) {
-            // The wave rolls slowly; the level follows the countdown and
-            // refills with a short animation when the reminder restarts. The
-            // readout is ink above the water and white where the water covers
-            // it, so it reads on light and dark themes alike.
-            TimelineView(.animation(minimumInterval: 1.0 / 15)) { timeline in
+            // The level follows the countdown and refills with a short
+            // animation when the reminder restarts. The readout is ink above
+            // the water and white where the water covers it, so it reads on
+            // light and dark themes alike.
+            TimelineView(.animation(minimumInterval: 1.0 / 15, paused: !isHovering)) { timeline in
                 let water = SystemWaterShape(
                     level: timer.level,
                     phase: timeline.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 3600) * 1.4
@@ -732,6 +737,7 @@ private struct SystemDrinkWaterTile: View {
             }
             .animation(.easeInOut(duration: 0.8), value: timer.level > 0.995)
         }
+        .onHover { isHovering = $0 }
     }
 
     private func readout(_ timer: IntervalTimer, ink: Color) -> some View {

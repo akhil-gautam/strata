@@ -306,9 +306,10 @@ private struct IslandEars: View {
     private var leading: some View {
         switch activity {
         case .agentNeedsYou:
+            // Still glyphs throughout: a looping effect keeps the whole
+            // window redrawing for as long as it shows.
             Image(systemName: "hand.raised.fill")
                 .foregroundStyle(DockAccent.orange)
-                .symbolEffect(.pulse)
         case .focus:
             let phase = FocusTimer.shared.phase
             // The cup is Keep Awake's.
@@ -318,7 +319,6 @@ private struct IslandEars: View {
             Circle()
                 .fill(AIUsageFormat.brand(session.tool))
                 .frame(width: 7, height: 7)
-                .phaseAnimator([1.0, 0.35]) { dot, opacity in dot.opacity(opacity) } animation: { _ in .easeInOut(duration: 0.9) }
         case .awake:
             Image(systemName: "cup.and.saucer.fill")
                 .foregroundStyle(DockAccent.orange)
@@ -353,7 +353,6 @@ private struct IslandEars: View {
         case .music:
             Image(systemName: "waveform")
                 .foregroundStyle(DockAccent.green)
-                .symbolEffect(.variableColor.iterative, isActive: NowPlayingService.shared.isPlaying)
         }
     }
 }
